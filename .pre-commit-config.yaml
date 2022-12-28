@@ -24,15 +24,15 @@ repos:
         pass_filenames: false
         entry: make black
 
-# -   repo: local
-#     hooks:
-#     -   id: isort
-#         name: isort
-#         stages: [commit]
-#         types: [python]
-#         language: system
-#         pass_filenames: false
-#         entry: "isort ."
+-   repo: local
+    hooks:
+    -   id: isort
+        name: isort
+        stages: [commit]
+        types: [python]
+        language: system
+        pass_filenames: false
+        entry: make isort
 
 # -   repo: local
 #     hooks:
