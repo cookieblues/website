@@ -9,10 +9,10 @@ black:
 	$(ACTIVATE_DJANGO_APP_VENV) && cd $(DJANGO_DIR) && poetry run black .
 
 isort:
-	$(VENV_DIR)/bin/pre-commit run isort --all-files
+	$(ACTIVATE_DJANGO_APP_VENV) && cd $(DJANGO_DIR) && poetry run isort .
 
 flake8:
-	$(VENV_DIR)/bin/pre-commit run flake8 --all-files
+	$(ACTIVATE_DJANGO_APP_VENV) && cd $(DJANGO_DIR) && poetry run flake8 .
 
 mypy:
-	$(VENV_DIR)/bin/pre-commit run mypy --all-files
+	$(ACTIVATE_DJANGO_APP_VENV) && cd $(DJANGO_DIR) && poetry run mypy .
