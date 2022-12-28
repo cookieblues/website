@@ -34,14 +34,14 @@ repos:
         pass_filenames: false
         entry: make isort
 
-# -   repo: local
-#     hooks:
-#     -   id: flake8
-#         name: flake8
-#         types: [python]
-#         language: system
-#         pass_filenames: false
-#         entry: flake8
+-   repo: local
+    hooks:
+    -   id: flake8
+        name: flake8
+        types: [python]
+        language: system
+        pass_filenames: false
+        entry: make flake8
 
 # -   repo: local
 #     hooks:
