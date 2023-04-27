@@ -43,3 +43,16 @@ check-docker-logs:
 .PHONY: stop-container
 stop-container:
 	docker-compose down -v
+
+.PHONY: run-docker-migrations
+run-docker-migrations:
+	docker-compose exec web poetry run python cookiesite/manage.py migrate --noinput
+
+.PHONY: flush-and-migrate
+flush-and-migrate:
+	docker-compose exec web poetry run python manage.py flush --no-input
+	docker-compose exec web poetry run python manage.py migrate
+
+.PHONY: check-docker-db
+check-docker-db:
+	docker volume inspect website_postgres_data

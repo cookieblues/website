@@ -5,7 +5,6 @@
     "python.linting.prospectorEnabled": false,
     "python.linting.mypyEnabled": true,
     "python.testing.pytestEnabled": true,
-    "python.formatting.provider": "black",
     "python.formatting.blackArgs": [
         "--force-exclude=/migrations/"
     ],
@@ -14,6 +13,7 @@
         "editor.codeActionsOnSave": {
             "source.organizeImports": true
         },
+        "editor.defaultFormatter": "ms-python.black-formatter",
     },
     "python.linting.flake8Args": [
         "--config=.flake8"
