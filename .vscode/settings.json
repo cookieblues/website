@@ -5,7 +5,6 @@
     "python.linting.prospectorEnabled": false,
     "python.linting.mypyEnabled": true,
     "python.testing.pytestEnabled": true,
-    "python.formatting.provider": "none",
     "python.formatting.blackArgs": [
         "--force-exclude=/migrations/"
     ],
