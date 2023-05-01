@@ -56,3 +56,9 @@ flush-and-migrate:
 .PHONY: check-docker-db
 check-docker-db:
 	docker volume inspect website_postgres_data
+
+.PHONY: rerun-prod
+rerun-prod:
+	docker-compose -f docker-compose.prod.yml down -v
+	docker-compose -f docker-compose.prod.yml up -d --build
+	docker-compose -f docker-compose.prod.yml exec web poetry run python manage.py migrate --noinput

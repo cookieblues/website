@@ -14,6 +14,8 @@ ENV PYTHONUNBUFFERED 1
 
 COPY /cookiesite /usr/src/app/cookiesite
 # COPY /poetry.lock .
+COPY /entrypoint.sh .
+COPY /manage.py .
 COPY /poetry.toml .
 COPY /pyproject.toml .
 COPY /README.md .
@@ -28,8 +30,8 @@ RUN poetry install --no-interaction --no-ansi --without dev
 # COPY . .
 
 # copy entrypoint.sh
-RUN sed -i 's/\r$//g' /usr/src/app/cookiesite/entrypoint.sh
-RUN chmod +x /usr/src/app/cookiesite/entrypoint.sh
+RUN sed -i 's/\r$//g' /usr/src/app/entrypoint.sh
+RUN chmod +x /usr/src/app/entrypoint.sh
 
 # run entrypoint.sh
-ENTRYPOINT ["/usr/src/app/cookiesite/entrypoint.sh"]
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
