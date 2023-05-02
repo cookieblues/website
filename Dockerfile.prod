@@ -16,6 +16,7 @@ ENV APP_HOME=/home/app/web
 # create directory for the app user
 RUN mkdir -p $HOME
 RUN mkdir -p $APP_HOME
+RUN mkdir -p $APP_HOME/staticfiles
 
 # create the app user
 RUN addgroup -S app && adduser -S app -G app
