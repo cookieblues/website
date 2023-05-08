@@ -1,0 +1,73 @@
+.post {
+  counter-reset: sidenote-counter;
+}
+.post h1 a {
+  color: #912b5d;
+  text-decoration: none;
+}
+.post h1 a:hover {
+  color: #6a103c;
+  text-decoration: underline;
+}
+.post time {
+  padding: 0 0 20px 0;
+  display: block;
+}
+.post + .post {
+  margin: 65px 0 50px 0;
+}
+.pagination {
+  text-align: center;
+  margin: 50px 0 0 0;
+}
+.take-me {
+  float: right;
+}
+.take-me .button {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+/*span*/
+.marginnote, .sidenote {
+ /*span*/
+  font-size: 80%;
+  left: calc(50% + 280px);
+  line-height: 1.1rem;
+  max-width: 400px;
+  position: absolute;
+  margin-top: 5px;
+  width: 100%;
+}
+/*span*/
+.sidenote:before {
+  content: counter(sidenote-counter) " ";
+  font-family: 'Fira Sans', sans-serif;
+  position: relative;
+  top: -0.5rem;
+  vertical-align: baseline;
+}
+/*span*/
+.sidenote-number {
+  counter-increment: sidenote-counter;
+}
+.sidenote-number:after {
+  content: counter(sidenote-counter);
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 80%;
+  position: relative;
+  top: -0.5rem;
+  vertical-align: baseline;
+}
+code {
+  line-height: 1.75;
+  font-size: 125%;
+}
+.lineno {
+  color: rgba(0, 0, 0, 0.25);
+}
+.party-tooltip {
+  stroke: #c3c3c3;
+  stroke-width: 2.25px;
+  paint-order: stroke;
+  background-color: #000;
+}
