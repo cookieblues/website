@@ -13,6 +13,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 COPY /cookiesite /usr/src/app/cookiesite
+COPY /blog /usr/src/app/blog
 # COPY /poetry.lock .
 COPY /entrypoint.sh .
 COPY /manage.py .

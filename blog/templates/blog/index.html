@@ -1,0 +1,43 @@
+{% extends "blog/base.html" %}
+{% load markdown_extras %}
+{% load url_extras %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="posts">
+  {% for post in posts %}
+  <article class="post">
+    <h1>
+      <a href="/blog/{{ post.title | space_to_hyphen | lower }}">{{ post.title }}</a>
+    </h1>
+
+    <time>{{ post.date_created }}</time>
+
+    <a href="/blog/{{ post.title | space_to_hyphen | lower }}">
+      <div class="image">
+        <img src="/static/blog/post_content/{{ post.title | space_to_hyphen | lower }}/{{ post.featured_image }}" alt="{{ post.title }}">
+      </div>
+    </a>
+
+    {{ post.excerpt | markdown | safe }}
+  </article>
+
+  <hr>
+  {% endfor %}
+
+  {% if paginator.total_pages > 1 %}
+  <div class="pagination">
+    {% if paginator.previous_page %}
+    <a href="{{ site.baseurl }}{{ paginator.previous_page_path }}" class="previous btn">&larr; Newer posts</a>
+    {% endif %}
+
+    <span class="page_number ">{{ paginator.page }} of {{ paginator.total_pages }}</span>
+
+    {% if paginator.next_page %}
+    <a href="{{ site.baseurl }}{{ paginator.next_page_path }}" class="next btn">Older posts &rarr;</a>
+    {% endif %}
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

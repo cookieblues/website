@@ -1,0 +1,23 @@
+nav {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: rgba(255, 255, 255, .9);
+  z-index: 999;
+}
+nav a {
+  display: inline-block;
+  text-decoration: none;
+  padding: 20px 15px;
+  color: #444;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.9em;
+}
+nav a.active {
+  color: #888;
+}
+nav a:hover {
+  color: #000;
+}

@@ -33,6 +33,7 @@ mypy:
 
 .PHONY: build-docker
 build-docker:
+	docker-compose down -v
 	docker-compose build
 	docker-compose up -d
 
@@ -63,3 +64,14 @@ rerun-prod:
 	docker-compose -f docker-compose.prod.yml up -d --build
 	docker-compose -f docker-compose.prod.yml exec web poetry run python manage.py migrate --noinput
 	docker-compose -f docker-compose.prod.yml exec web poetry run python manage.py collectstatic --no-input --clear
+
+.PHONY: build-and-push-stage
+build-and-push-stage:
+	docker-compose down -v
+	docker-compose -f docker-compose.stage.yml build
+	aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 284110347794.dkr.ecr.eu-west-1.amazonaws.com
+	docker-compose -f docker-compose.stage.yml push
+
+.PHONY: copy-files-to-instance
+copy-files-to-instance:
+	scp -i ~/.ssh/djangoletsencrypt.pem -r $(pwd)/{cookiesite,nginx,.env.stage,.env.stage.proxy-companion,docker-compose.stage.yml,Dockerfile.prod,entrypoint.prod.sh,manage.py,poetry.toml,pyproject.toml,README.md} ubuntu@34.250.69.75:/home/ubuntu/cookieblues-website-prod
