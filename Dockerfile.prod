@@ -29,6 +29,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 COPY /cookiesite $APP_HOME/cookiesite
+COPY /blog $APP_HOME/blog
 COPY /entrypoint.prod.sh .
 COPY /manage.py .
 COPY /poetry.toml .
