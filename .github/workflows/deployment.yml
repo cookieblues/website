@@ -9,7 +9,7 @@ on:
 
 jobs:
   build-push-image:
-    name: Build and push image
+    name: Build, push, and deploy image
     # if: ${{ !github.event.pull_request }}
     runs-on: ubuntu-latest
     steps:
@@ -28,20 +28,13 @@ jobs:
         run: |
           echo "${{ secrets.ENV_STAGE }}" > .env.stage
           echo "${{ secrets.ENV_STAGE_PROXY_COMPANION }}" > .env.stage.proxy-companion
-      - name: Build Docker image
+      - name: Build image
         run: |
           docker-compose -f docker-compose.stage.yml build
       - name: Push Docker image
         run: |
           docker-compose -f docker-compose.stage.yml push
-  deploy-image:
-    name: Deploy image
-    needs: build-push-image
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout branch
-      uses: actions/checkout@v3
-    - name: Install SSH keys
+      - name: Install SSH keys
       # check this thread to understand why its needed:
       # https://stackoverflow.com/a/70447517
       run: |
