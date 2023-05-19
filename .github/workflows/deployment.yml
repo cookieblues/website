@@ -56,9 +56,7 @@ jobs:
           ssh-keyscan -H ${{ secrets.EC2_SSH_HOST }} > ~/.ssh/known_hosts
       - name: Remove existing code
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.EC2_SSH_USER }}@${{ secrets.EC2_SSH_HOST }}
-          cd /home/ubuntu/cookieblues-website-stage
-          rm -rf *
+          ssh -i ~/.ssh/id_rsa ${{ secrets.EC2_SSH_USER }}@${{ secrets.EC2_SSH_HOST }} 'rm -rf /home/ubuntu/cookieblues-website-stage'
       - name: Copy new code
         run: |
           scp -i ~/.ssh/id_rsa -r $(pwd)/{cookiesite,blog,nginx,.env.stage,.env.stage.proxy-companion,docker-compose.stage.yml,Dockerfile.prod,entrypoint.prod.sh,manage.py,poetry.toml,pyproject.toml,README.md} ${{ secrets.EC2_SSH_USER }}@${{ secrets.EC2_SSH_HOST }}:/home/ubuntu/cookieblues-website-stage
