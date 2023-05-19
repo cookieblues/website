@@ -91,3 +91,5 @@ copy-files-to-instance:
 
 # logs
 # docker-compose -f docker-compose.stage.yml logs
+
+# rm -r *
