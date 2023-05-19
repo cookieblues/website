@@ -62,12 +62,6 @@ jobs:
           scp -i ~/.ssh/id_rsa -r $(pwd)/{cookiesite,blog,nginx,.env.stage,.env.stage.proxy-companion,docker-compose.stage.yml,Dockerfile.prod,entrypoint.prod.sh,manage.py,poetry.toml,pyproject.toml,README.md} ${{ secrets.EC2_SSH_USER }}@${{ secrets.EC2_SSH_HOST }}:/home/ubuntu/cookieblues-website-stage
       - name: Deploy new image
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.EC2_SSH_USER }}@${{ secrets.EC2_SSH_HOST }}
-          cd /home/ubuntu/cookieblues-website-stage
-          docker-compose -f docker-compose.stage.yml down
-          aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 284110347794.dkr.ecr.eu-west-1.amazonaws.com
-          docker pull 284110347794.dkr.ecr.eu-west-1.amazonaws.com/django-ec2:web
-          docker pull 284110347794.dkr.ecr.eu-west-1.amazonaws.com/django-ec2:nginx-proxy
-          docker-compose -f docker-compose.stage.yml up -d
+          ssh -i ~/.ssh/id_rsa ${{ secrets.EC2_SSH_USER }}@${{ secrets.EC2_SSH_HOST }} 'bash ~/deploy.sh'
       - name: cleanup
         run: rm -rf ~/.ssh
