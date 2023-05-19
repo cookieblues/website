@@ -10,7 +10,7 @@ on:
 jobs:
   build-push-image:
     name: Build and push image
-    # if: ${{ !github.event.pull_request }}
+    ## if: ${{ !github.event.pull_request }}
     runs-on: ubuntu-latest
     steps:
       - name: Configure AWS credentials
