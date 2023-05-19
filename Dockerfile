@@ -23,12 +23,6 @@ COPY /README.md .
 
 # install dependencies
 RUN poetry install --no-interaction --no-ansi --without dev
-# RUN pip install --upgrade pip
-# COPY ./requirements.txt .
-# RUN pip install -r requirements.txt
-
-# # copy project
-# COPY . .
 
 # copy entrypoint.sh
 RUN sed -i 's/\r$//g' /usr/src/app/entrypoint.sh
