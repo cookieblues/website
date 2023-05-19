@@ -35,14 +35,14 @@ jobs:
         run: |
           docker-compose -f docker-compose.stage.yml push
       - name: Install SSH keys
-      # check this thread to understand why its needed:
-      # https://stackoverflow.com/a/70447517
-      run: |
-        install -m 600 -D /dev/null ~/.ssh/id_rsa
-        echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.EC2_SSH_HOST }} > ~/.ssh/known_hosts
-    - name: connect and pull
-      run: |
-        scp -i ~/.ssh/id_rsa -r $(pwd)/{cookiesite,blog,nginx,.env.stage,.env.stage.proxy-companion,docker-compose.stage.yml,Dockerfile.prod,entrypoint.prod.sh,manage.py,poetry.toml,pyproject.toml,README.md} ${{ secrets.EC2_SSH_USER }}@${{ secrets.EC2_SSH_HOST }}:/home/ubuntu/cookieblues-website-stage
-    - name: cleanup
-      run: rm -rf ~/.ssh
+        # check this thread to understand why its needed:
+        # https://stackoverflow.com/a/70447517
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.EC2_SSH_HOST }} > ~/.ssh/known_hosts
+      - name: connect and pull
+        run: |
+          scp -i ~/.ssh/id_rsa -r $(pwd)/{cookiesite,blog,nginx,.env.stage,.env.stage.proxy-companion,docker-compose.stage.yml,Dockerfile.prod,entrypoint.prod.sh,manage.py,poetry.toml,pyproject.toml,README.md} ${{ secrets.EC2_SSH_USER }}@${{ secrets.EC2_SSH_HOST }}:/home/ubuntu/cookieblues-website-stage
+      - name: cleanup
+        run: rm -rf ~/.ssh
