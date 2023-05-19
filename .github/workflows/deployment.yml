@@ -38,6 +38,9 @@ jobs:
         run: rm -rf ~/.ssh
   copy-deploy-image:
     name: Copy and deploy image
+    needs: build-push-image
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout branch
         uses: actions/checkout@v3
       - name: Create env file
