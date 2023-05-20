@@ -12,8 +12,6 @@ WORKDIR /usr/src/app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-COPY /cookiesite /usr/src/app/cookiesite
-COPY /blog /usr/src/app/blog
 # COPY /poetry.lock .
 COPY /entrypoint.sh .
 COPY /manage.py .
@@ -23,6 +21,10 @@ COPY /README.md .
 
 # install dependencies
 RUN poetry install --no-interaction --no-ansi --without dev
+
+# copy code
+COPY /cookiesite /usr/src/app/cookiesite
+COPY /blog /usr/src/app/blog
 
 # copy entrypoint.sh
 RUN sed -i 's/\r$//g' /usr/src/app/entrypoint.sh

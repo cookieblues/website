@@ -36,6 +36,9 @@ build-docker:
 	docker-compose down -v
 	docker-compose build
 	docker-compose up -d
+	docker-compose exec web poetry run python manage.py makemigrations
+	docker-compose exec web poetry run python manage.py migrate --noinput
+	docker-compose exec web poetry run python manage.py collectstatic --no-input --clear
 
 .PHONY: check-docker-logs
 check-docker-logs:
