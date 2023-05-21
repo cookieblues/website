@@ -33,7 +33,7 @@ mypy:
 
 .PHONY: build-docker
 build-docker:
-	docker-compose down -v
+	docker-compose down -v --remove-orphans
 	docker-compose build
 	docker-compose up -d
 	docker-compose exec web poetry run python manage.py makemigrations --no-input
