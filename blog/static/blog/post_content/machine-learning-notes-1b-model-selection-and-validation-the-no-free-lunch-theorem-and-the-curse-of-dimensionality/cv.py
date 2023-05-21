@@ -1,7 +1,7 @@
-import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
+import numpy as np
 from scipy.constants import golden
 
 mpl.rc("text", usetex=True)
@@ -19,10 +19,11 @@ def kfold(n_points, n_splits=2):
     idx = np.arange(n_points)
     current = 0
     for split_size in split_sizes:
-        val_idx = idx[current:current+split_size]
+        val_idx = idx[current : current + split_size]
         train_idx = np.delete(idx, val_idx)
         yield train_idx, val_idx
         current += split_size
+
 
 k = 3
 N = 11

@@ -2,9 +2,9 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 
-
 mpl.rc("text", usetex=True)
 mpl.rc("font", family="serif")
+
 
 def draw_ellipse(position, covariance, ax=None, **kwargs):
     """Draw an ellipse with a given position and covariance"""
@@ -46,8 +46,8 @@ class QDA:
                 prior = np.log(self.priors[c])
                 inv_cov = np.linalg.inv(self.covs[c])
                 inv_cov_det = np.linalg.det(inv_cov)
-                diff = x-self.means[c]
-                likelihood = 0.5*np.log(inv_cov_det) - 0.5*diff.T @ inv_cov @ diff
+                diff = x - self.means[c]
+                likelihood = 0.5 * np.log(inv_cov_det) - 0.5 * diff.T @ inv_cov @ diff
                 post = prior + likelihood
                 posts.append(post)
             pred = self.classes[np.argmax(posts)]
@@ -66,7 +66,7 @@ preds = qda.predict(X)
 
 
 # Figure
-fig = plt.figure(figsize=(8, 8/1.4))
+fig = plt.figure(figsize=(8, 8 / 1.4))
 ax = fig.add_subplot(111)
 
 class_clrs = ["magenta", "turquoise"]
@@ -79,7 +79,7 @@ for c in qda.classes:
         edgecolor="none",
         alpha=alpha,
         zorder=1,
-        ax=ax
+        ax=ax,
     )
 for c in reversed(qda.classes):
     draw_ellipse(
@@ -87,44 +87,44 @@ for c in reversed(qda.classes):
         qda.covs[c],
         facecolor=class_clrs[int(c)],
         edgecolor="none",
-        alpha=alpha/2,
+        alpha=alpha / 2,
         zorder=1,
-        ax=ax
+        ax=ax,
     )
 
 ax.scatter(
-    x = X[preds == 0, 0],
-    y = X[preds == 0, 1],
-    c = "none",
-    edgecolor = "magenta",
-    alpha = 0.8,
-    label = "Pred 0",
-    zorder=2
+    x=X[preds == 0, 0],
+    y=X[preds == 0, 1],
+    c="none",
+    edgecolor="magenta",
+    alpha=0.8,
+    label="Pred 0",
+    zorder=2,
 )
 ax.scatter(
-    x = X[preds == 1, 0],
-    y = X[preds == 1, 1],
-    c = "none",
-    edgecolor = "turquoise",
-    alpha = 0.8,
-    label = "Pred 1",
-    zorder=2
+    x=X[preds == 1, 0],
+    y=X[preds == 1, 1],
+    c="none",
+    edgecolor="turquoise",
+    alpha=0.8,
+    label="Pred 1",
+    zorder=2,
 )
 ax.scatter(
-    x = X[preds == 1, 0],
-    y = X[preds == 1, 1],
-    c = "none",
-    edgecolor = "turquoise",
-    alpha = 0.4,
-    zorder=2
+    x=X[preds == 1, 0],
+    y=X[preds == 1, 1],
+    c="none",
+    edgecolor="turquoise",
+    alpha=0.4,
+    zorder=2,
 )
 ax.scatter(
-    x = X[preds == 0, 0],
-    y = X[preds == 0, 1],
-    c = "none",
-    edgecolor = "magenta",
-    alpha = 0.4,
-    zorder=2
+    x=X[preds == 0, 0],
+    y=X[preds == 0, 1],
+    c="none",
+    edgecolor="magenta",
+    alpha=0.4,
+    zorder=2,
 )
 
 ax.legend(framealpha=0, loc="upper left", fontsize=14)
