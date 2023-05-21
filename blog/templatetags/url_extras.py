@@ -2,7 +2,6 @@ from django import template
 
 from blog.utils import post_url_format
 
-
 register = template.Library()
 
 

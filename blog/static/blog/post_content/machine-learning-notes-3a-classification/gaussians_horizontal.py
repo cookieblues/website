@@ -25,7 +25,7 @@ mpl.rc("text", usetex=True)
 mpl.rc("font", family="serif")
 
 
-fig = plt.figure(figsize=(15, 15/3), constrained_layout=True)
+fig = plt.figure(figsize=(15, 15 / 3), constrained_layout=True)
 gs = mpl.gridspec.GridSpec(2, 6, figure=fig)
 
 for i in range(4):
@@ -43,41 +43,12 @@ for i in range(4):
     cov_1 /= cov_1.sum()
     cov_2 /= cov_2.sum()
 
+    ax = fig.add_subplot(1, 4, int(i + 1))
 
-    ax = fig.add_subplot(1, 4, int(i+1))
-
-    draw_ellipse(
-        mean_1,
-        cov_1,
-        edgecolor="none",
-        facecolor="magenta",
-        alpha=0.2,
-        ax=ax
-    )
-    draw_ellipse(
-        mean_2,
-        cov_2,
-        edgecolor="none",
-        facecolor="turquoise",
-        alpha=0.2,
-        ax=ax
-    )
-    draw_ellipse(
-        mean_2,
-        cov_2,
-        edgecolor="none",
-        facecolor="turquoise",
-        alpha=0.1,
-        ax=ax
-    )
-    draw_ellipse(
-        mean_1,
-        cov_1,
-        edgecolor="none",
-        facecolor="magenta",
-        alpha=0.1,
-        ax=ax
-    )
+    draw_ellipse(mean_1, cov_1, edgecolor="none", facecolor="magenta", alpha=0.2, ax=ax)
+    draw_ellipse(mean_2, cov_2, edgecolor="none", facecolor="turquoise", alpha=0.2, ax=ax)
+    draw_ellipse(mean_2, cov_2, edgecolor="none", facecolor="turquoise", alpha=0.1, ax=ax)
+    draw_ellipse(mean_1, cov_1, edgecolor="none", facecolor="magenta", alpha=0.1, ax=ax)
 
     ax.tick_params(
         axis="both",
@@ -93,7 +64,7 @@ for i in range(4):
     ax.set_xlim(-4, 4)
     ax.set_ylim(-4, 4)
 
-    ax.set_aspect(1/ax.get_data_ratio(), adjustable="box")
+    ax.set_aspect(1 / ax.get_data_ratio(), adjustable="box")
 
     if i == 0:
         ax.set_title("Different covariance matrices", fontsize=14)
@@ -107,13 +78,13 @@ for i in range(4):
         ax.text(
             0.85,
             0.02,
-            'cookieblues.github.io',
+            "cookieblues.github.io",
             fontsize=11,
-            horizontalalignment='center',
-            verticalalignment='center',
+            horizontalalignment="center",
+            verticalalignment="center",
             transform=ax.transAxes,
-            color='dimgrey',
-            zorder=5
+            color="dimgrey",
+            zorder=5,
         )
 
 

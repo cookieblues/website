@@ -25,7 +25,7 @@ mpl.rc("text", usetex=True)
 mpl.rc("font", family="serif")
 
 
-fig = plt.figure(figsize=(8, 8/3), constrained_layout=True)
+fig = plt.figure(figsize=(8, 8 / 3), constrained_layout=True)
 gs = mpl.gridspec.GridSpec(2, 6, figure=fig)
 
 for i in range(3):
@@ -40,44 +40,15 @@ for i in range(3):
     else:
         cov_1 = np.array([[0.2, 0], [0, 0.2]], dtype=np.float32)
         cov_2 = np.array([[0.5, 0], [0, 0.5]], dtype=np.float32)
-    #cov_1 /= cov_1.sum()
-    #cov_2 /= cov_2.sum()
+    # cov_1 /= cov_1.sum()
+    # cov_2 /= cov_2.sum()
 
+    ax = fig.add_subplot(1, 3, int(i + 1))
 
-    ax = fig.add_subplot(1, 3, int(i+1))
-
-    draw_ellipse(
-        mean_1,
-        cov_1,
-        edgecolor="none",
-        facecolor="magenta",
-        alpha=0.2,
-        ax=ax
-    )
-    draw_ellipse(
-        mean_2,
-        cov_2,
-        edgecolor="none",
-        facecolor="turquoise",
-        alpha=0.2,
-        ax=ax
-    )
-    draw_ellipse(
-        mean_2,
-        cov_2,
-        edgecolor="none",
-        facecolor="turquoise",
-        alpha=0.1,
-        ax=ax
-    )
-    draw_ellipse(
-        mean_1,
-        cov_1,
-        edgecolor="none",
-        facecolor="magenta",
-        alpha=0.1,
-        ax=ax
-    )
+    draw_ellipse(mean_1, cov_1, edgecolor="none", facecolor="magenta", alpha=0.2, ax=ax)
+    draw_ellipse(mean_2, cov_2, edgecolor="none", facecolor="turquoise", alpha=0.2, ax=ax)
+    draw_ellipse(mean_2, cov_2, edgecolor="none", facecolor="turquoise", alpha=0.1, ax=ax)
+    draw_ellipse(mean_1, cov_1, edgecolor="none", facecolor="magenta", alpha=0.1, ax=ax)
 
     ax.tick_params(
         axis="both",
@@ -99,17 +70,10 @@ for i in range(3):
 
     # Grids
     ax.set_axisbelow(True)
-    ax.tick_params(
-        which="both",
-        top="off",
-        left="off",
-        right="off",
-        bottom="off",
-        length=0
-    )
+    ax.tick_params(which="both", top="off", left="off", right="off", bottom="off", length=0)
     ax.grid(linestyle=":", linewidth=0.5)
 
-    ax.set_aspect(1/ax.get_data_ratio(), adjustable="box")
+    ax.set_aspect(1 / ax.get_data_ratio(), adjustable="box")
 
     if i == 0:
         ax.set_title("Different covariance matrices", fontsize=12)
@@ -121,13 +85,13 @@ for i in range(3):
         ax.text(
             0.68,
             0.04,
-            'cookieblues.github.io',
+            "cookieblues.github.io",
             fontsize=11,
-            horizontalalignment='center',
-            verticalalignment='center',
+            horizontalalignment="center",
+            verticalalignment="center",
             transform=ax.transAxes,
-            color='dimgrey',
-            zorder=5
+            color="dimgrey",
+            zorder=5,
         )
 
 

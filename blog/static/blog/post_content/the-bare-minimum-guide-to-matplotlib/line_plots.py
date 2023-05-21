@@ -17,8 +17,6 @@ from scipy.stats import norm
 # plt.show()
 
 
-
-
 # x = np.linspace(-6, 6, num=100)
 
 # fig = plt.figure(figsize=(6,6/golden))
@@ -34,14 +32,13 @@ from scipy.stats import norm
 # plt.show()
 
 
-
 x = np.linspace(-2, 9, num=100)
 
-fig = plt.figure(figsize=(6,6/golden))
+fig = plt.figure(figsize=(6, 6 / golden))
 ax = fig.add_subplot()
 
-for i in range(1,7):
-    ax.plot(x, norm.pdf(x, loc=i, scale=1), color="black", linewidth=i/2)
+for i in range(1, 7):
+    ax.plot(x, norm.pdf(x, loc=i, scale=1), color="black", linewidth=i / 2)
 
 plt.tight_layout()
 plt.savefig("linewidths.svg")
