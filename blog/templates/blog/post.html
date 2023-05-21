@@ -1,0 +1,19 @@
+{% extends "blog/base.html" %}
+{% load markdown_extras %}
+{% load url_extras %}
+
+{% block content %}
+<article class="post">
+  <h1>
+    <a href="/blog/{{ post.title | space_to_hyphen | lower }}">{{ post.title }}</a>
+  </h1>
+
+  <time>{{ post.date_created }}</time>
+
+  <div class="image">
+      <img src="/static/blog/post_content/{{ post.title | space_to_hyphen | lower }}/{{ post.featured_image }}" alt="{{ post.title }}">
+  </div>
+
+  <div class="post-body">{{ post.body | markdown | safe }}</div>
+</article>
+{% endblock %}
