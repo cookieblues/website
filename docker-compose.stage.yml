@@ -41,6 +41,34 @@ services:
       - acme:/etc/acme.sh
     depends_on:
       - nginx-proxy
+  celery-worker:
+    restart: unless-stopped
+    build: .
+    entrypoint: /usr/src/app/worker-entrypoint.sh
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.stage
+    depends_on:
+        - web
+        - redis
+  celery-beat:
+    restart: unless-stopped
+    build: .
+    entrypoint: /usr/src/app/beat-entrypoint.sh
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.stage
+    depends_on:
+        - web
+        - redis
+        - celery-worker
+  redis:
+    restart: unless-stopped
+    image: redis:7.0.5-alpine
+    expose:
+      - 6379
 
 volumes:
   static_volume:

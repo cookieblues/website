@@ -36,41 +36,15 @@ build-docker:
 	docker-compose down -v --remove-orphans
 	docker-compose build
 	docker-compose up -d
-	docker-compose exec web poetry run python manage.py makemigrations --no-input
-	docker-compose exec web poetry run python manage.py migrate --no-input
 	docker-compose exec web poetry run python manage.py collectstatic --no-input --clear
+	docker image prune -af
 
 .PHONY: check-docker-logs
 check-docker-logs:
 	docker-compose logs -f
 
-.PHONY: stop-container
-stop-container:
-	docker-compose down -v
-
-.PHONY: run-docker-migrations
-run-docker-migrations:
-	docker-compose exec web poetry run python cookiesite/manage.py migrate --no-input
-
-.PHONY: flush-and-migrate
-flush-and-migrate:
-	docker-compose exec web poetry run python manage.py flush --no-input
-	docker-compose exec web poetry run python manage.py migrate
-
-.PHONY: check-docker-db
-check-docker-db:
-	docker volume inspect website_postgres_data
-
-.PHONY: rerun-prod
-rerun-prod:
-	docker-compose -f docker-compose.stage.yml down -v
-	docker-compose -f docker-compose.stage.yml up -d --build
-	docker-compose -f docker-compose.stage.yml exec web poetry run python manage.py makemigrations --no-input
-	docker-compose -f docker-compose.stage.yml exec web poetry run python manage.py migrate --no-input
-	docker-compose -f docker-compose.stage.yml exec web poetry run python manage.py collectstatic --no-input --clear
-
-.PHONY: build-and-push-stage
-build-and-push-stage:
+.PHONY: push-stage
+push-stage:
 	docker-compose down -v
 	docker-compose -f docker-compose.stage.yml build
 	aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 284110347794.dkr.ecr.eu-west-1.amazonaws.com
