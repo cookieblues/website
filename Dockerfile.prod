@@ -1,7 +1,7 @@
 #################################
 # BUILDER IMAGE
 #################################
-FROM python:3.9.16-alpine
+FROM python:3.9.16-alpine as builder-base
 
 # install poetry
 RUN pip install "poetry==1.4.2"
