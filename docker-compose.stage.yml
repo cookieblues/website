@@ -46,7 +46,7 @@ services:
     build: .
     entrypoint: /usr/src/app/worker-entrypoint.sh
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - ./app:/app
     env_file:
       - ./.env.stage
     depends_on:
@@ -57,7 +57,7 @@ services:
     build: .
     entrypoint: /usr/src/app/beat-entrypoint.sh
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - ./app:/app
     env_file:
       - ./.env.stage
     depends_on:
