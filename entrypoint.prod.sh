@@ -11,6 +11,6 @@ then
     echo "PostgreSQL started"
 fi
 
-poetry run gunicorn cookiesite.wsgi:application --bind 0.0.0.0:8000
+gunicorn cookiesite.wsgi:application --bind 0.0.0.0:8000
 
 exec "$@"

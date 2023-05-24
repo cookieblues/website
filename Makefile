@@ -36,7 +36,7 @@ build-docker:
 	docker-compose down -v --remove-orphans
 	docker-compose build
 	docker-compose up -d
-	docker-compose exec web poetry run python manage.py collectstatic --no-input --clear
+	docker-compose exec web python manage.py collectstatic --no-input --clear
 	docker image prune -af
 
 .PHONY: check-docker-logs
