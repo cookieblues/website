@@ -40,7 +40,7 @@ RUN mkdir -p $APP_HOME/static
 # set work directory
 WORKDIR $APP_HOME
 
-COPY --from=builder-base /usr/src/app/requirements.txt $APP_HOME/requirements.txt
+COPY --from=builder-base /requirements.txt $APP_HOME/requirements.txt
 
 # create the app user
 RUN addgroup -S app && adduser -S app -G app
