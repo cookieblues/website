@@ -30,7 +30,7 @@ jobs:
           echo "${{ secrets.ENV_STAGE_PROXY_COMPANION }}" > .env.stage.proxy-companion
       - name: Build image
         run: |
-          docker-compose -f docker-compose.stage.yml build
+          docker-compose -f docker-compose.stage.yml build --no-cache
       - name: Push Docker image
         run: |
           docker-compose -f docker-compose.stage.yml push
