@@ -1,11 +1,19 @@
-from celery.schedules import crontab
-from celery.task import periodic_task
 from celery.utils.log import get_task_logger
+
+from cookiesite.celery import app
 
 logger = get_task_logger(__name__)
 
 
-@periodic_task(run_every=(crontab()), name="random_test", ignore_result=True)
-def add_test():
+app.conf.beat_schedule = {
+    "blog-test-task": {
+        "task": "blog.tasks.add_test",
+        "schedule": 30,
+    },
+}
+
+
+@app.task(bind=True)
+def add_test(self):
     logger.debug("test job")
     print("test jobby")

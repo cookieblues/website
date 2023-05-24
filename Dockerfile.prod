@@ -26,7 +26,6 @@ ENV PYTHONUNBUFFERED 1
 
 COPY /cookiesite $APP_HOME/cookiesite
 COPY /blog $APP_HOME/blog
-COPY /entrypoint.prod.sh .
 COPY /manage.py .
 COPY /poetry.toml .
 COPY /pyproject.toml .
@@ -36,14 +35,20 @@ COPY /README.md .
 RUN poetry install --no-interaction --no-ansi --without dev
 
 # copy entrypoint.prod.sh
+COPY /entrypoint.prod.sh .
 RUN sed -i 's/\r$//g'  $APP_HOME/entrypoint.prod.sh
 RUN chmod +x  $APP_HOME/entrypoint.prod.sh
+
+COPY /worker-entrypoint.sh .
+RUN sed -i 's/\r$//g' $APP_HOME/worker-entrypoint.sh
+RUN chmod +x $APP_HOME/worker-entrypoint.sh
+
+COPY /beat-entrypoint.sh .
+RUN sed -i 's/\r$//g' $APP_HOME/beat-entrypoint.sh
+RUN chmod +x $APP_HOME/beat-entrypoint.sh
 
 # chown all the files to the app user
 RUN chown -R app:app $APP_HOME
 
 # change to the app user
 USER app
-
-# run entrypoint.prod.sh
-ENTRYPOINT ["/home/app/web/entrypoint.prod.sh"]
