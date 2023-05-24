@@ -43,7 +43,9 @@ services:
       - nginx-proxy
   celery-worker:
     restart: unless-stopped
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
     entrypoint: /usr/src/app/worker-entrypoint.sh
     volumes:
       - ./app:/app
@@ -54,7 +56,9 @@ services:
         - redis
   celery-beat:
     restart: unless-stopped
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
     entrypoint: /usr/src/app/beat-entrypoint.sh
     volumes:
       - ./app:/app
