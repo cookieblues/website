@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile.prod
     image: 284110347794.dkr.ecr.eu-west-1.amazonaws.com/django-ec2:web
-    entrypoint: /home/app/web/entrypoint.sh
+    entrypoint: /home/app/web/entrypoint.prod.sh
     volumes:
       - static_volume:/home/app/web/static
     expose:
