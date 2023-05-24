@@ -34,7 +34,7 @@ jobs:
       - name: Push Docker image
         run: |
           docker-compose -f docker-compose.stage.yml push
-      - name: cleanup
+      - name: Clean up SSH keys
         run: rm -rf ~/.ssh
   copy-deploy-image:
     name: Copy and deploy image
@@ -63,5 +63,5 @@ jobs:
       - name: Deploy new image
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.EC2_SSH_USER }}@${{ secrets.EC2_SSH_HOST }} 'bash ~/deploy.sh'
-      - name: cleanup
+      - name: Clean up SSH keys
         run: rm -rf ~/.ssh
