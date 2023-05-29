@@ -22,7 +22,7 @@ RUN poetry export -f requirements.txt >> requirements.txt
 FROM python:3.9.16-alpine
 
 # install psycopg2 dependencies
-RUN apk update && apk add postgresql-dev gcc python3 musl-dev libpq
+RUN apk update && apk add postgresql-dev gcc python3 musl-dev libpq supervisor
 
 ENV PYTHONDONTWRITEBYTECODE 1 \
     PYTHONUNBUFFERED 1 \
@@ -63,6 +63,8 @@ RUN chmod +x $APP_HOME/worker-entrypoint.sh
 COPY /beat-entrypoint.sh .
 RUN sed -i 's/\r$//g' $APP_HOME/beat-entrypoint.sh
 RUN chmod +x $APP_HOME/beat-entrypoint.sh
+
+COPY /supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # chown all the files to the app user
 RUN chown -R app:app $APP_HOME

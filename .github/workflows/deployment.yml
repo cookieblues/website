@@ -51,7 +51,7 @@ jobs:
         # check this thread to understand why its needed:
         # https://stackoverflow.com/a/70447517
         run: |
-          install -m 1800 -D /dev/null ~/.ssh/id_rsa
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
           echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.EC2_SSH_HOST }} > ~/.ssh/known_hosts
           echo "ServerAliveInterval 1800" >> ~/.ssh/config 
@@ -60,7 +60,7 @@ jobs:
           ssh -i ~/.ssh/id_rsa ${{ secrets.EC2_SSH_USER }}@${{ secrets.EC2_SSH_HOST }} 'rm -rf /home/ubuntu/cookieblues-website-stage/*'
       - name: Copy new code
         run: |
-          scp -i ~/.ssh/id_rsa -r $(pwd)/{cookiesite,blog,nginx,.env.stage,.env.stage.proxy-companion,docker-compose.stage.yml,Dockerfile.prod,entrypoint.prod.sh,beat-entrypoint.sh,worker-entrypoint.sh,manage.py,poetry.toml,pyproject.toml,README.md} ${{ secrets.EC2_SSH_USER }}@${{ secrets.EC2_SSH_HOST }}:/home/ubuntu/cookieblues-website-stage
+          scp -i ~/.ssh/id_rsa -r $(pwd)/{cookiesite,blog,nginx,.env.stage,.env.stage.proxy-companion,docker-compose.stage.yml,Dockerfile.prod,entrypoint.prod.sh,beat-entrypoint.sh,worker-entrypoint.sh,manage.py,poetry.toml,pyproject.toml,README.md,supervisord.conf} ${{ secrets.EC2_SSH_USER }}@${{ secrets.EC2_SSH_HOST }}:/home/ubuntu/cookieblues-website-stage
       - name: Deploy new image
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.EC2_SSH_USER }}@${{ secrets.EC2_SSH_HOST }} 'bash ~/deploy.sh'

@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile.prod
     image: 284110347794.dkr.ecr.eu-west-1.amazonaws.com/django-ec2:web
-    entrypoint: /home/app/web/entrypoint.prod.sh
+    entrypoint: /usr/bin/supervisord
     volumes:
       - static_volume:/home/app/web/static
     expose:
@@ -41,35 +41,35 @@ services:
       - acme:/etc/acme.sh
     depends_on:
       - nginx-proxy
-  celery-worker:
-    restart: unless-stopped
-    build:
-      context: .
-      dockerfile: Dockerfile.prod
-    image: 284110347794.dkr.ecr.eu-west-1.amazonaws.com/django-ec2:celery-worker
-    entrypoint: /home/app/web/worker-entrypoint.sh
-    volumes:
-      - ./app:/app
-    env_file:
-      - ./.env.stage
-    depends_on:
-        - web
-        - redis
-  celery-beat:
-    restart: unless-stopped
-    build:
-      context: .
-      dockerfile: Dockerfile.prod
-    image: 284110347794.dkr.ecr.eu-west-1.amazonaws.com/django-ec2:celery-beat
-    entrypoint: /home/app/web/beat-entrypoint.sh
-    volumes:
-      - ./app:/app
-    env_file:
-      - ./.env.stage
-    depends_on:
-        - web
-        - redis
-        - celery-worker
+  # celery-worker:
+  #   restart: unless-stopped
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.prod
+  #   image: 284110347794.dkr.ecr.eu-west-1.amazonaws.com/django-ec2:celery-worker
+  #   entrypoint: /home/app/web/worker-entrypoint.sh
+  #   volumes:
+  #     - ./app:/app
+  #   env_file:
+  #     - ./.env.stage
+  #   depends_on:
+  #       - web
+  #       - redis
+  # celery-beat:
+  #   restart: unless-stopped
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.prod
+  #   image: 284110347794.dkr.ecr.eu-west-1.amazonaws.com/django-ec2:celery-beat
+  #   entrypoint: /home/app/web/beat-entrypoint.sh
+  #   volumes:
+  #     - ./app:/app
+  #   env_file:
+  #     - ./.env.stage
+  #   depends_on:
+  #       - web
+  #       - redis
+  #       - celery-worker
   redis:
     restart: unless-stopped
     image: redis:7.0.5-alpine
