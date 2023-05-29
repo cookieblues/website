@@ -6,4 +6,4 @@ do
 done
 
 # run a worker
-poetry run celery -A cookiesite worker --loglevel=info --concurrency 1 -E
+celery -A cookiesite worker --loglevel=info --concurrency 1 -E

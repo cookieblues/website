@@ -6,4 +6,4 @@ do
 done
 
 # run the beater
-poetry run celery -A cookiesite beat --loglevel=info
+celery -A cookiesite beat --loglevel=info
