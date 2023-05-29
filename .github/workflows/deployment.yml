@@ -51,9 +51,10 @@ jobs:
         # check this thread to understand why its needed:
         # https://stackoverflow.com/a/70447517
         run: |
-          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          install -m 1800 -D /dev/null ~/.ssh/id_rsa
           echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.EC2_SSH_HOST }} > ~/.ssh/known_hosts
+          echo "ServerAliveInterval 1800" >> ~/.ssh/config 
       - name: Remove existing code
         run: |
           ssh -i ~/.ssh/id_rsa ${{ secrets.EC2_SSH_USER }}@${{ secrets.EC2_SSH_HOST }} 'rm -rf /home/ubuntu/cookieblues-website-stage/*'

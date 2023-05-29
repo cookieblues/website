@@ -22,7 +22,7 @@ RUN poetry export -f requirements.txt >> requirements.txt
 FROM python:3.9.16-alpine
 
 # install psycopg2 dependencies
-RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev libpq
+RUN apk update && apk add postgresql-dev gcc python3 musl-dev libpq
 
 ENV PYTHONDONTWRITEBYTECODE 1 \
     PYTHONUNBUFFERED 1 \
