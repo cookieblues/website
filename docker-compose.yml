@@ -3,7 +3,7 @@ version: '3.8'
 services:
   web:
     build: .
-    entrypoint: /usr/src/app/entrypoint.sh
+    entrypoint: /home/app/web/entrypoint.sh
     ports:
       - 8000:8000
     env_file:
@@ -19,7 +19,7 @@ services:
   celery-worker:
     restart: unless-stopped
     build: .
-    entrypoint: /usr/src/app/worker-entrypoint.sh
+    entrypoint: /home/app/web/worker-entrypoint.sh
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
@@ -30,7 +30,7 @@ services:
   celery-beat:
     restart: unless-stopped
     build: .
-    entrypoint: /usr/src/app/beat-entrypoint.sh
+    entrypoint: /home/app/web/beat-entrypoint.sh
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
